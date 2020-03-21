@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Project</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+  <h1>Library Project</h1>
+  <div class="container">
+    <div class="book-table">
+      <header>
+        <ul class="book-headings">
+          <li>
+            <h3>Title</h3>
+          </li>
+          <li>
+            <h3>Author</h3>
+          </li>
+          <li>
+            <h3>Pages</h3>
+          </li>
+          <li>
+            <h3>Read</h3>
+          </li>
+        </ul>
+      </header>
+      <div class="book-container"></div>
+    </div>
+
+    <button id="new-book" class="btn">Add a book</button>
+  </div>
+  <div id="modal" class="modal">
+    <div class="form-container">
+      <button id="close-modal" class="close-modal">x</button>
+      <form id="form" class="form">
+        <h2>ADD NEW BOOK</h2>
+        <div class="input-group">
+          <label for="book-title">Book Title:</label>
+          <input id="book-title" type="text" placeholder="Enter book title..." required name="title">
+        </div>
+        <div class="input-group">
+          <label for="book-author">Book Author:</label>
+          <input id="book-author" type="text" placeholder="Enter the author's name..." required name="author">
+        </div>
+        <div class="input-group">
+          <label for="book-pages">Page Count:</label>
+          <input id="book-pages" type="number" placeholder="Enter the number of pages..." required name="pages">
+        </div>
+        <div class="input-group">
+          <label for="book-read-status">Have you read the book?:</label>
+          Yes<input id="book-read" type="radio" name="readStatus" value="Read"> No<input id="book-not-read"
+            name="readStatus" type="radio" value="Not Read">
+        </div>
+        <button id="submit-book" type="submit" class="btn">Submit Book</button>
+      </form>
+    </div>
+  </div>
+
+
+</body>
+<script src="script.js"></script>
+
+</html>
