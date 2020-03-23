@@ -29,7 +29,6 @@ class Store {
       removeBookBtn = document.querySelectorAll('.remove-book-btn')
       removeBookBtn.forEach(btn => btn.addEventListener('click', removeBook))
     });
-
   }
 
   static addBook(book) {
