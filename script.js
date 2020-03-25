@@ -8,6 +8,100 @@ let removeBookBtn;
 
 let myLibrary;
 
+// Utilities
+function createBookElement() {
+  const bookElement = document.createElement('ul');
+  bookElement.classList.add('book');
+  return bookElement;
+};
+
+// Book Class.
+class Book {
+  constructor(title, author, numOfPages, haveRead = 'Not Read') {
+    this.title = title;
+    this.author = author;
+    this.numOfPages = numOfPages;
+    this.haveRead = haveRead;
+    this.bookElement = createBookElement();
+    this.renderBookContents();
+  }
+
+  renderBookContents() {
+    this.bookElement.innerHTML = `
+      <li>${this.title}</li>
+      <li>${this.author}</li>
+      <li>${this.numOfPages}</li>
+      <li data-readstatus>${this.haveRead}</li>
+      <button class="remove-book-btn">X</button>
+    `;
+    this.addListeners();
+  }
+
+  addListeners() {
+    this.bookElement.querySelector('[data-readstatus]').addEventListener('click', UI.toggleReadStatus);
+  }
+}
+
+// UI class
+class UI {
+
+  static displayBooks() {
+    bookContainer.innerHTML = '';
+    myLibrary = Store.getBooks();
+    myLibrary.forEach((book) => {
+      bookContainer.appendChild(book.bookElement)
+      removeBookBtn = document.querySelectorAll('.remove-book-btn')
+      removeBookBtn.forEach(btn => btn.addEventListener('click', UI.removeBook))
+    });
+  }
+
+  static addNewBookToLibrary(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const newBook = new Book(
+      formData.get('title'),
+      formData.get('author'),
+      formData.get('pages'),
+      formData.get('readStatus')
+    );
+
+    myLibrary = Store.getBooks()
+
+    // Making sure there are no dublicate books
+    for (let i = 0; i < myLibrary.length; i++) {
+      if (myLibrary[i].title === newBook.title) {
+        alert('This book is already in the library!')
+        modal.classList.remove('show')
+        return;
+      }
+    }
+
+    Store.addBook(newBook);
+    UI.displayBooks();
+
+    modal.classList.remove('show')
+  }
+
+  static removeBook(e) {
+    e.target.parentElement.remove()
+    Store.removeBook(e.target);
+    UI.displayBooks();
+  }
+
+  static toggleReadStatus(el) {
+    if (el.target.innerText === 'Read') {
+      el.target.innerText = 'Reading';
+    } else if (el.target.innerText === 'Reading') {
+      el.target.innerText = 'Not Read'
+    } else {
+      el.target.innerText = 'Read';
+    };
+
+    Store.toggleReadStatus(el.target);
+  }
+}
+
 // Local storage class
 class Store {
 
@@ -21,16 +115,6 @@ class Store {
     return myLibrary;
   }
 
-  static displayBooks() {
-    bookContainer.innerHTML = '';
-    myLibrary = Store.getBooks();
-    myLibrary.forEach((book) => {
-      bookContainer.appendChild(book.bookElement)
-      removeBookBtn = document.querySelectorAll('.remove-book-btn')
-      removeBookBtn.forEach(btn => btn.addEventListener('click', removeBook))
-    });
-  }
-
   static addBook(book) {
     myLibrary = Store.getBooks();
     book = new Book(book.title, book.author, book.numOfPages, book.readStatus);
@@ -38,119 +122,23 @@ class Store {
     localStorage.setItem('myLibrary', JSON.stringify(myLibrary))
   }
 
-  // static removeBook(e) {
-  //   e.target.parentElement.remove()
-  //   myLibrary = Store.getBooks();
-  //   console.log
-  //   myLibrary = myLibrary.filter(book => !e.target.parentElement.innerHTML.includes(book.title))
-  //   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-  //   Store.displayBooks();
-  // }
-
-  // static toggleReadStatusLocalStorage(e, readStatus) {
-  //   myLibrary = Store.getBooks();
-  //   console.log(e.target.parentElement);
-  //   for (let i = 0; i < myLibrary.length; i++) {
-
-  //     myLibrary[i].haveRead = readStatus;
-  //     console.log(e.target);
-  //     console.log(readStatus);
-  //     localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-  //     Store.displayBooks();
-
-  //   }
-  // }
-
-}
-
-// Utilities
-function createBookElement() {
-  const bookElement = document.createElement('ul');
-  bookElement.classList.add('book');
-  return bookElement;
-};
-
-// Book Class.
-function Book(title, author, numOfPages, haveRead = 'Not Read') {
-  this.title = title;
-  this.author = author;
-  this.numOfPages = numOfPages;
-  this.haveRead = haveRead;
-  this.bookElement = createBookElement();
-  this.renderBookContents();
-}
-
-Book.prototype.renderBookContents = function () {
-  this.bookElement.innerHTML = `
-    <li>${this.title}</li>
-    <li>${this.author}</li>
-    <li>${this.numOfPages}</li>
-    <li data-readstatus>${this.haveRead}</li>
-    <button class="remove-book-btn">X</button>
-  `;
-  this.addListeners();
-}
-
-Book.prototype.toggleReadStatus = function (e) {
-  this.haveRead = this.haveRead === 'Read' ? 'Not Read' : 'Read';
-  this.renderBookContents();
-  // Store.toggleReadStatusLocalStorage(e, this.haveRead)'
-  myLibrary = Store.getBooks();
-
-  for (let i = 0; i < myLibrary.length; i++) {
-    if (myLibrary[i].haveRead !== this.haveRead && myLibrary[i].title === this.title) {
-      myLibrary[i].haveRead = this.haveRead;
-      localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-      Store.displayBooks();
-    }
-  }
-}
-
-Book.prototype.addListeners = function () {
-  this.bookElement.querySelector('[data-readstatus]').addEventListener('click', this.toggleReadStatus.bind(this));
-}
-
-function addBookToLibrary(book) {
-  Store.addBook(book);
-  Store.displayBooks();
-}
-
-function addNewBookToLibrary(e) {
-  e.preventDefault();
-  const formData = new FormData(form);
-
-  const newBook = new Book(
-    formData.get('title'),
-    formData.get('author'),
-    formData.get('pages'),
-    formData.get('readStatus')
-  );
-
-  myLibrary = Store.getBooks()
-
-  // Making sure there are no dublicate books
-  for (let i = 0; i < myLibrary.length; i++) {
-    if (myLibrary[i].title === newBook.title) {
-      alert('This book is already in the library!')
-      modal.classList.remove('show')
-      return;
-    } else {
-      continue;
-    }
+  static removeBook(el) {
+    myLibrary = Store.getBooks();
+    myLibrary = myLibrary.filter(book => !el.parentElement.innerHTML.includes(book.title))
+    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
   }
 
-  addBookToLibrary(newBook);
-
-  modal.classList.remove('show')
-}
-
-function removeBook(e) {
-  e.target.parentElement.remove()
-  myLibrary = Store.getBooks();
-  console.log
-  myLibrary = myLibrary.filter(book => !e.target.parentElement.innerHTML.includes(book.title))
-  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-  Store.displayBooks();
+  static toggleReadStatus(el) {
+    myLibrary = Store.getBooks();
+    for (let i = 0; i < myLibrary.length; i++) {
+      if (myLibrary[i].haveRead !== el.parentElement.children[0].innerText && myLibrary[i].title === el.parentElement.children[0].innerText) {
+        myLibrary[i].haveRead = el.innerText;
+        localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+        UI.displayBooks();
+      }
+    }
+    console.log(el.parentElement.children[0].innerText);
+  }
 }
 
 /* Event listeners */
@@ -166,23 +154,7 @@ closeModal.addEventListener('click', () => {
 });
 
 // Submit book
-form.addEventListener('submit', addNewBookToLibrary)
+form.addEventListener('submit', UI.addNewBookToLibrary)
 
 // DOM Load Event 
-document.addEventListener('DOMContentLoaded', Store.displayBooks)
-
-
-/* LIBRARY FOR TESTING
-
-// // Library
-// const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 295, 'Not Read');
-// const harryPotter3 = new Book('Harry Potter and the Prisoner of Azkaban', 'J. K. Rowling', 317, 'Read');
-// const whenNietzscheWept = new Book('When Nietzsche Wept', 'Irvin D. Yalom', 303, 'Read');
-// const nineteenEightyFour = new Book('1984', 'George Orwell', 325, 'Not Read');
-
-// addBookToLibrary(theHobbit);
-// addBookToLibrary(harryPotter3);
-// addBookToLibrary(whenNietzscheWept);
-// addBookToLibrary(nineteenEightyFour);
-
-*/
+document.addEventListener('DOMContentLoaded', UI.displayBooks)
