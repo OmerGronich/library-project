@@ -31,8 +31,8 @@ class Book {
       <li>${this.title}</li>
       <li>${this.author}</li>
       <li>${this.numOfPages}</li>
-      <li data-readstatus>${this.haveRead}</li>
-      <button class="remove-book-btn">X</button>
+      <li class="read-status" data-readstatus>${this.haveRead}</li>
+      <button class="btn--remove-book">X</button>
     `;
     this.addListeners();
   }
@@ -46,11 +46,11 @@ class Book {
 class UI {
 
   static displayBooks() {
-    bookContainer.innerHTML = '';
     myLibrary = Store.getBooks();
+    bookContainer.innerHTML = '';
     myLibrary.forEach((book) => {
       bookContainer.appendChild(book.bookElement)
-      removeBookBtn = document.querySelectorAll('.remove-book-btn')
+      removeBookBtn = document.querySelectorAll('.btn--remove-book')
       removeBookBtn.forEach(btn => btn.addEventListener('click', UI.removeBook))
     });
   }
@@ -86,19 +86,19 @@ class UI {
   static removeBook(e) {
     e.target.parentElement.remove()
     Store.removeBook(e.target);
-    UI.displayBooks();
   }
 
   static toggleReadStatus(el) {
-    if (el.target.innerText === 'Read') {
+    if (el.target.innerText === 'Not Read') {
       el.target.innerText = 'Reading';
     } else if (el.target.innerText === 'Reading') {
-      el.target.innerText = 'Not Read'
+      el.target.innerText = 'Finished'
     } else {
-      el.target.innerText = 'Read';
+      el.target.innerText = 'Not Read';
     };
 
     Store.toggleReadStatus(el.target);
+
   }
 }
 
@@ -134,10 +134,9 @@ class Store {
       if (myLibrary[i].haveRead !== el.parentElement.children[0].innerText && myLibrary[i].title === el.parentElement.children[0].innerText) {
         myLibrary[i].haveRead = el.innerText;
         localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-        UI.displayBooks();
       }
     }
-    console.log(el.parentElement.children[0].innerText);
+
   }
 }
 

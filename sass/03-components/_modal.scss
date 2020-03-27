@@ -1,0 +1,81 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .2s ease-in, visibility .2s ease-in;
+  color: $color-black;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__form-container {
+    @include flexCenter;
+    position: relative;
+    flex-direction: column;
+    height: 70%;
+    width: 70%;
+    color: $color-almostWhite-text;
+    border: 1px solid $color-almostWhite-text;
+    background-image: linear-gradient(
+      105deg,
+      rgba($color-bgDark-bookContainer,0.9) 0%,
+      rgba($color-bgDark-nav, 0.9) 70%,
+      transparent 70%
+    )
+  }
+
+  &__form {
+    background-image: linear-gradient(
+      -75deg,
+      rgba($color-white,0.9) 0%,
+      rgba($color-white, 0.9) 29%,
+      transparent 29%
+    );
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+    padding-left: 3rem;
+  }
+
+  &__input-group {
+    margin-bottom: 3rem;
+  }
+
+  &__label {
+    display: block;
+  } 
+
+  &__input {
+    display: block;
+    width: 65%;
+    padding: 1rem;
+    outline: none;
+  }
+
+  &__radio-section {
+    display: flex;
+    width: 50%;
+  }
+
+  &__radio-group {
+    margin-right: 5rem;
+  }
+
+  
+  
+}
+
+
+
+
