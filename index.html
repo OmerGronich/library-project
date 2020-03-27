@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Project</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <script src="https://kit.fontawesome.com/88ab1ebf3e.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <nav class="side-nav">
+      <header class="side-nav__header">
+        <div class="side-nav__logo">
+          <i class="fas fa-book-reader side-nav__reader-icon"></i>Odin Library
+        </div>
+        <ul class="side-nav__status-list">
+          <li class="side-nav__status">Not Read</li>
+          <li class="side-nav__status">Currently Reading</li>
+          <li class="side-nav__status">Finished</li>
+        </ul>
+        <button id="new-book" class="btn btn--dark">Add A Book</button>
+      </header>
+    </nav>
+    <div class="book-container">
+
+    </div>
+
+  </div>
+  <div id="modal" class="modal">
+    <div class="modal__form-container">
+      <button id="close-modal" class="btn btn--close-modal">x</button>
+      <form id="form" class="modal__form">
+        <h2 class="modal__form-title heading-secondary u-margin-bottom-small u-margin-top-small">ADD NEW BOOK</h2>
+        <div class="modal__input-group">
+          <label class="modal__label" for="book-title">Book Title:</label>
+          <input class="modal__input" id="book-title" type="text" placeholder="Enter book title..." required
+            name="title">
+        </div>
+        <div class="modal__input-group">
+          <label class="modal__label" for="book-author">Book Author:</label>
+          <input class="modal__input" id="book-author" type="text" placeholder="Enter the author's name..." required
+            name="author">
+        </div>
+        <div class="modal__input-group">
+          <label class="modal__label" for="book-pages">Page Count:</label>
+          <input class="modal__input" id="book-pages" type="number" placeholder="Enter the number of pages..." required
+            name="pages">
+        </div>
+        <p class="u-margin-top-medium u-margin-bottom-small">Have you read the book?:</p>
+        <div class="modal__radio-section">
+          <div class="modal__radio-group">
+            <input class="modal__radio-input" id="book-not-read" name="readStatus" type="radio" value="Not Read"
+              checked>
+            <label class="modal__radio-label" for="book-not-read"><span class="modal__radio-button"></span> No</label>
+          </div>
+          <div class="modal__radio-group">
+            <input class="modal__radio-input" id="book-read" type="radio" name="readStatus" value="Read">
+            <label modal__radio-label for="book-read"><span class="modal__radio-button"></span> Yes</label>
+          </div>
+        </div>
+        <button id="submit-book" type="submit" class="btn btn--primary u-margin-top-medium">Submit Book</button>
+      </form>
+    </div>
+  </div>
+
+
+</body>
+<script src="script.js"></script>
+
+</html>
