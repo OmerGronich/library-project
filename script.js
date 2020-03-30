@@ -120,6 +120,29 @@ class UI {
   }
 
   static filterBooks(e) {
+    // Get library
+    myLibrary = Store.getBooks();
+    const currentBooks = Array.from(bookContainer.children)
+
+    const listItems = document.querySelectorAll('.side-nav__status');
+
+    if (e.target.innerText === 'All') {
+      currentBooks.forEach(book => book.style.display = 'flex');
+    }
+
+    // adding css class to clicked list item
+    if (!e.target.classList.contains('active')) {
+      listItems.forEach(li => li.classList.contains('active') ? li.classList.remove('active') : "")
+      e.target.classList.add('active');
+    }
+
+    if (e.target.innerText === 'Not Read') {
+      currentBooks.map(book => book.children[3].innerText !== 'Not Read' ? book.style.display = 'none' : book.style.display = 'flex');
+    } else if (e.target.innerText === 'Currently Reading') {
+      currentBooks.map(book => book.children[3].innerText !== 'Reading' ? book.style.display = 'none' : book.style.display = 'flex');
+    } else if (e.target.innerText === 'Finished') {
+      currentBooks.map(book => book.children[3].innerText !== 'Finished' ? book.style.display = 'none' : book.style.display = 'flex');
+    }
 
   }
 }
