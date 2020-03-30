@@ -28,12 +28,23 @@ class Book {
 
   renderBookContents() {
     this.bookElement.innerHTML = `
-      <li>${this.title}</li>
-      <li>${this.author}</li>
-      <li>${this.numOfPages}</li>
-      <li class="read-status" data-readstatus>${this.haveRead}</li>
+      <li class="book__detail">${this.title}</li>
+      <li class="book__detail">${this.author}</li>
+      <li class="book__detail">${this.numOfPages}</li>
+      <li class="book__detail book__read-status" data-readstatus>${this.haveRead}</li>
       <button class="btn--remove-book">X</button>
     `;
+    // selecting read status li
+    let readStatusElement = [...this.bookElement.children].filter(el => el.classList.contains('book__read-status'))[0];
+    // Setting read-status class
+    if (this.haveRead === 'Not Read') {
+      readStatusElement.classList.add('book__read-status--not-read');
+    } else if (this.haveRead === 'Reading') {
+      readStatusElement.classList.add('book__read-status--reading');
+    } else {
+      readStatusElement.classList.add('book__read-status--finished');
+    }
+
     this.addListeners();
   }
 
@@ -91,10 +102,19 @@ class UI {
   static toggleReadStatus(el) {
     if (el.target.innerText === 'Not Read') {
       el.target.innerText = 'Reading';
+      el.target.classList.remove('book__read-status--not-read');
+      el.target.classList.add('book__read-status--reading');
+      console.log(el.target.classList);
     } else if (el.target.innerText === 'Reading') {
       el.target.innerText = 'Finished'
+      el.target.classList.remove('book__read-status--reading');
+      el.target.classList.add('book__read-status--finished');
+      console.log(el.target.classList);
     } else {
       el.target.innerText = 'Not Read';
+      el.target.classList.remove('book__read-status--finished');
+      el.target.classList.add('book__read-status--not-read');
+      console.log(el.target.classList);
     };
 
     Store.toggleReadStatus(el.target);
