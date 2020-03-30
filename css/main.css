@@ -355,6 +355,10 @@ body {
   background: #1baae4;
 }
 
+.side-nav__status.active {
+  background: #1baae4;
+}
+
 .container {
   width: 100%;
   display: -webkit-box;

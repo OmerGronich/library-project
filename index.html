@@ -23,6 +23,7 @@
           <li class="side-nav__status">Not Read</li>
           <li class="side-nav__status">Currently Reading</li>
           <li class="side-nav__status">Finished</li>
+          <li class="side-nav__status active">All</li>
         </ul>
         <button id="new-book" class="btn btn--dark">Add A Book</button>
       </header>
@@ -52,7 +53,7 @@
           <input class="modal__input" id="book-pages" type="number" placeholder="Enter the number of pages..." required
             name="pages">
         </div>
-        <p class="u-margin-top-medium u-margin-bottom-small">Have you read the book?:</p>
+        <p class="u-margin-top-medium u-margin-bottom-small">Have you read the book?</p>
         <div class="modal__radio-section">
           <div class="modal__radio-group">
             <input class="modal__radio-input" id="book-not-read" name="readStatus" type="radio" value="Not Read"
@@ -65,7 +66,7 @@
               Reading</label>
           </div>
           <div class="modal__radio-group">
-            <input class="modal__radio-input" id="book-read" type="radio" name="readStatus" value="Read">
+            <input class="modal__radio-input" id="book-read" type="radio" name="readStatus" value="Finished">
             <label modal__radio-label for="book-read"><span class="modal__radio-button"></span> Yes</label>
           </div>
         </div>
