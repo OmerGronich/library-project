@@ -47,7 +47,10 @@
 
   &__status:hover {
     background: $color-primary-light;
+  }
 
+  &__status.active {
+    background: $color-primary-light;
   }
 
 }

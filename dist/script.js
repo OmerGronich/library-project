@@ -4,6 +4,7 @@ const newBookBtn = document.getElementById('new-book');
 const modal = document.getElementById('modal');
 const closeModal = document.getElementById('close-modal');
 const form = document.getElementById('form');
+const filterList = document.querySelector('.side-nav__status-list')
 let removeBookBtn;
 
 let myLibrary;
@@ -36,13 +37,14 @@ class Book {
     `;
     // selecting read status li
     let readStatusElement = [...this.bookElement.children].filter(el => el.classList.contains('book__read-status'))[0];
+
     // Setting read-status class
     if (this.haveRead === 'Not Read') {
-      readStatusElement.classList.add('book__read-status--not-read');
+      this.bookElement.children[3].classList.add('book__read-status--not-read');
     } else if (this.haveRead === 'Reading') {
-      readStatusElement.classList.add('book__read-status--reading');
+      this.bookElement.children[3].classList.add('book__read-status--reading');
     } else {
-      readStatusElement.classList.add('book__read-status--finished');
+      this.bookElement.children[3].classList.add('book__read-status--finished');
     }
 
     this.addListeners();
@@ -90,7 +92,6 @@ class UI {
 
     Store.addBook(newBook);
     UI.displayBooks();
-
     modal.classList.remove('show')
   }
 
@@ -104,20 +105,21 @@ class UI {
       el.target.innerText = 'Reading';
       el.target.classList.remove('book__read-status--not-read');
       el.target.classList.add('book__read-status--reading');
-      console.log(el.target.classList);
     } else if (el.target.innerText === 'Reading') {
       el.target.innerText = 'Finished'
       el.target.classList.remove('book__read-status--reading');
       el.target.classList.add('book__read-status--finished');
-      console.log(el.target.classList);
     } else {
       el.target.innerText = 'Not Read';
       el.target.classList.remove('book__read-status--finished');
       el.target.classList.add('book__read-status--not-read');
-      console.log(el.target.classList);
     };
 
     Store.toggleReadStatus(el.target);
+
+  }
+
+  static filterBooks(e) {
 
   }
 }
@@ -137,14 +139,13 @@ class Store {
 
   static addBook(book) {
     myLibrary = Store.getBooks();
-    book = new Book(book.title, book.author, book.numOfPages, book.readStatus);
     myLibrary.push(book);
     localStorage.setItem('myLibrary', JSON.stringify(myLibrary))
   }
 
   static removeBook(el) {
     myLibrary = Store.getBooks();
-    myLibrary = myLibrary.filter(book => !el.parentElement.innerHTML.includes(book.title))
+    myLibrary = myLibrary.filter(book => el.parentElement.children[0].innerText !== book.title)
     localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
   }
 
@@ -174,6 +175,9 @@ closeModal.addEventListener('click', () => {
 
 // Submit book
 form.addEventListener('submit', UI.addNewBookToLibrary)
+
+// Filter list by read status
+filterList.addEventListener('click', UI.filterBooks)
 
 // DOM Load Event 
 document.addEventListener('DOMContentLoaded', UI.displayBooks)
