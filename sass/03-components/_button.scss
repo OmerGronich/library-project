@@ -39,15 +39,17 @@
 
   
   &--remove-book {
-    border-radius: 5px;
-    padding: 5px;
-    width: 30px;
-    height: 30px;
     outline: none;
     cursor: pointer;
-    background: rgb(244, 78, 78);
-    color: #fff;
-  
+    color: $color-primary-dark;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    padding: 2rem 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &--primary {  

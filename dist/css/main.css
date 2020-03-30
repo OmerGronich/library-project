@@ -64,6 +64,57 @@ body {
   margin-top: 8rem;
 }
 
+.book {
+  background-color: #141414;
+  color: #fff;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 2rem;
+  margin: 1rem 0;
+  border-radius: 3px;
+  width: 80%;
+}
+
+.book__detail {
+  padding: 1rem 0;
+  font-size: 1.6rem;
+}
+
+.book__read-status {
+  margin-top: 4rem;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.book__read-status::-moz-selection {
+  cursor: default;
+}
+
+.book__read-status::selection {
+  cursor: default;
+}
+
+.book__read-status--finished {
+  border: 1px solid #00a4e5;
+  color: #00a4e5;
+}
+
+.book__read-status--not-read {
+  border: 1px solid #940130;
+  color: #940130;
+}
+
+.book__read-status--reading {
+  border: 1px solid orange;
+  color: orange;
+}
+
 .btn {
   cursor: pointer;
   font-size: 1.6rem;
@@ -109,14 +160,17 @@ body {
 }
 
 .btn--remove-book {
-  border-radius: 5px;
-  padding: 5px;
-  width: 30px;
-  height: 30px;
   outline: none;
   cursor: pointer;
-  background: #f44e4e;
-  color: #fff;
+  color: #00a4e5;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  padding: 2rem 0;
+}
+
+.btn--remove-book:hover {
+  text-decoration: underline;
 }
 
 .btn--primary {
@@ -216,22 +270,29 @@ body {
   margin-right: 5rem;
 }
 
-.read-status {
-  cursor: pointer;
-}
-
 .book-container {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
   background-color: #1d1d1d;
   color: #ededed;
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 2rem;
+  height: 100vh;
+  overflow: auto;
+  justify-items: center;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  -ms-grid-columns: (minmax(250px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
 .side-nav {
-  height: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 100%;
   max-width: 35rem;
+  min-width: 15rem;
   background: #141414;
   -webkit-box-flex: 1;
       -ms-flex: 1;
