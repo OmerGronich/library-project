@@ -35,6 +35,8 @@
     &:hover {
       transform: scale(1.2);
     }
+
+
   }
 
   
@@ -64,6 +66,14 @@
       background: $color-white;
       color: $color-primary-dark;
     }
+
+    @include respond(tab-land) {
+      margin: 0 auto;
+    }
+    @include respond(tab-port) {
+      margin: 2rem auto;
+    }
+
 
   }
 

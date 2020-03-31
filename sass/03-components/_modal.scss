@@ -27,25 +27,32 @@
     width: 70%;
     color: $color-almostWhite-text;
     border: 1px solid $color-almostWhite-text;
-    background-image: linear-gradient(
+    background: linear-gradient(
       105deg,
       rgba($color-bgDark-bookContainer,0.9) 0%,
       rgba($color-bgDark-nav, 0.9) 70%,
-      transparent 70%
-    )
+      $color-white 70%
+    );
+
+    @include respond(phone) {
+      background: rgba($color-bgDark-bookContainer,0.9);
+      height: 80%;
+      width: 90%;
+    }
   }
 
   &__form {
-    background-image: linear-gradient(
-      -75deg,
-      rgba($color-white,0.9) 0%,
-      rgba($color-white, 0.9) 29%,
-      transparent 29%
-    );
     height: 100%;
     width: 100%;
     font-size: 2rem;
     padding-left: 3rem;
+
+  
+    @include respond(phone) {
+      padding: 0;
+      height: auto;
+      text-align: center;
+    }    
   }
 
   &__input-group {
@@ -61,15 +68,26 @@
     width: 65%;
     padding: 1rem;
     outline: none;
+    @include respond(phone) {
+      margin: auto;
+      width: 90%;
+
+    }
   }
 
   &__radio-section {
     display: flex;
     width: 50%;
+    @include respond(phone) {
+      margin: auto;
+    }
   }
 
   &__radio-group {
     margin-right: 5rem;
+    @include respond(phone) {
+      margin-right: 2rem;
+    }
   }
 
   

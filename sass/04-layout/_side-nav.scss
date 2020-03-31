@@ -9,6 +9,9 @@
   flex-direction: column;
   border-right: 1px solid $color-darkGrey-borders;
 
+  @include respond(phone) {
+    max-width: 20rem;
+  }
 
 
   &__header {
@@ -25,6 +28,10 @@
     font-size: 2rem;
     color: $color-primary-light;
     padding: 3rem;
+
+    @include respond(phone) {
+      padding: 0;
+    }
   }
 
   &__reader-icon {
