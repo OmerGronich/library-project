@@ -1,3 +1,19 @@
+/* 
+phones: 0 - 600px
+tablet-portrait: 600 - 900px
+tablet-landscape: 900 - 1200px
+desktop(first): 1200 - 1800px
+big desketop: 1800px +
+
+$breakpoint argument choices:
+- phone
+- tab-port
+- tab-land
+- big-desktop
+
+ORDER: Base + typography > general layout + grid > page layout > components >
+
+*/
 *,
 *::after,
 *::before {
@@ -13,6 +29,18 @@ ul {
 
 html {
   font-size: 62.5%;
+}
+
+@media (max-width: 75em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+
+@media (max-width: 56.25em) {
+  html {
+    font-size: 50%;
+  }
 }
 
 body {
@@ -202,6 +230,18 @@ body {
   color: #00a4e5;
 }
 
+@media (max-width: 75em) {
+  .btn--primary {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 56.25em) {
+  .btn--primary {
+    margin: 2rem auto;
+  }
+}
+
 .modal {
   position: fixed;
   top: 0;
@@ -250,15 +290,30 @@ body {
   width: 70%;
   color: #ededed;
   border: 1px solid #ededed;
-  background-image: linear-gradient(105deg, rgba(29, 29, 29, 0.9) 0%, rgba(20, 20, 20, 0.9) 70%, transparent 70%);
+  background: linear-gradient(105deg, rgba(29, 29, 29, 0.9) 0%, rgba(20, 20, 20, 0.9) 70%, #fff 70%);
+}
+
+@media (max-width: 37.5em) {
+  .modal__form-container {
+    background: rgba(29, 29, 29, 0.9);
+    height: 80%;
+    width: 90%;
+  }
 }
 
 .modal__form {
-  background-image: linear-gradient(-75deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 29%, transparent 29%);
   height: 100%;
   width: 100%;
   font-size: 2rem;
   padding-left: 3rem;
+}
+
+@media (max-width: 37.5em) {
+  .modal__form {
+    padding: 0;
+    height: auto;
+    text-align: center;
+  }
 }
 
 .modal__input-group {
@@ -276,6 +331,13 @@ body {
   outline: none;
 }
 
+@media (max-width: 37.5em) {
+  .modal__input {
+    margin: auto;
+    width: 90%;
+  }
+}
+
 .modal__radio-section {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -283,8 +345,20 @@ body {
   width: 50%;
 }
 
+@media (max-width: 37.5em) {
+  .modal__radio-section {
+    margin: auto;
+  }
+}
+
 .modal__radio-group {
   margin-right: 5rem;
+}
+
+@media (max-width: 37.5em) {
+  .modal__radio-group {
+    margin-right: 2rem;
+  }
 }
 
 .book-container {
@@ -305,6 +379,20 @@ body {
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
+@media (max-width: 37.5em) {
+  .book-container {
+    grid-gap: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 22em) {
+  .book-container {
+    justify-items: flex-start;
+  }
+}
+
 .side-nav {
   height: 100vh;
   min-height: 100%;
@@ -322,6 +410,12 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   border-right: 1px solid #404040;
+}
+
+@media (max-width: 37.5em) {
+  .side-nav {
+    max-width: 20rem;
+  }
 }
 
 .side-nav__header {
@@ -349,6 +443,12 @@ body {
   font-size: 2rem;
   color: #1baae4;
   padding: 3rem;
+}
+
+@media (max-width: 37.5em) {
+  .side-nav__logo {
+    padding: 0;
+  }
 }
 
 .side-nav__reader-icon {
